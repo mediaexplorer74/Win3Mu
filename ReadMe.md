@@ -74,15 +74,14 @@ https://www.youtube.com/watch?v=OBpEU0PXbYM
 
 - unpack win3mu.zip and ski.zip to c:\win3mu
 
-- if you want register "Convert to Win3Mu" command (at desktop popup/hot menu), just
+- if you want to register "Convert to Win3Mu" command (at desktop popup/hot menu), just
 run cmd.exe as Administator, change dir to c:\win3mu 
 and type/enter the command:
-
 win3mutool /register  
 
 See "Repackage with Win3mu" video if you don't undestand this cool feature :)
 
-- if you want manually run ski.exe then simply type/enter the command:
+- if you want to manually run ski.exe then simply type/enter the command:
 win3mu ski.exe
 
 
