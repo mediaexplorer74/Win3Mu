@@ -1,0 +1,13 @@
+[submodule "PetaJson"]
+	path = PetaJson
+	url = https://github.com/toptensoftware/PetaJson.git
+	branch = master
+[submodule "conframes"]
+	path = conframes
+	url = https://github.com/skochinsky/PetaJson.git
+	branch = master
+[submodule "ConFrames"]
+	path = ConFrames
+	url = https://github.com/skochinsky/ConFrames.git
+	branch = master
+	
