@@ -1,17 +1,20 @@
 # Win3Mu
 C# Windows 3.x emulator
 
-RnD Only. Not for any end user.
+RnD only. Not for any end user.
 
 ## About
 forked/imported from https://bitbucket.org/toptensoftware/win3mu
 
 The author: Brad Robinson (an independent software developer)
 
-My idea is old as our brave world: UWP port of Win3Mu; Win 3 app "native" emulation for old poor PC, etc. :)  
+My idea is old as our brave world: UWP port of Win3Mu; Win 3 app "native" emulation for old poor PC, etc. :) 
+
+Now for now, Win3Mu just "usual" .NET 4.8 app, not UWP app 
 
 ## Screenshots
 ![Shot 1](Images/shot1.png)
+![Shot 2](Images/shot2.png)
 
 ## Articles for your own dev
 Part 01. Why I’m writing a Windows 3 Emulator
@@ -59,6 +62,29 @@ https://medium.com/@toptensoftware/win3mu-part-10-leveraging-reflection-45452224
 Introducting Win3mu!
 
 https://www.youtube.com/watch?v=yYsl5B_CefU
+
+Repackage with Win3mu
+
+https://www.youtube.com/watch?v=OBpEU0PXbYM
+
+
+## How-to
+
+- Create some work folder, i.e. c:\win3mu
+
+- unpack win3mu.zip and ski.zip to c:\win3mu
+
+- if you want register "Convert to Win3Mu" command (at desktop popup/hot menu), just
+run cmd.exe as Administator, change dir to c:\win3mu 
+and type/enter the command:
+
+win3mutool /register  
+
+See "Repackage with Win3mu" video if you don't undestand this cool feature :)
+
+- if you want manually run ski.exe then simply type/enter the command:
+win3mu ski.exe
+
 
 ## More tech details (building, etc.)
 
