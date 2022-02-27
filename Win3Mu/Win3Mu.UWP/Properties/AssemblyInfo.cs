@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MineSweeper")]
-[assembly: AssemblyDescription("MineSweeper micro-game")]
+[assembly: AssemblyTitle("Win3mu.UWP")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MineSweeper")]
-[assembly: AssemblyCopyright("Copyright © ME 2022")]
+[assembly: AssemblyProduct("Win3mu.UWP")]
+[assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

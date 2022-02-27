@@ -1,166 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 x:Class="MineSweeper.MainPage"
-             xmlns:mine="clr-namespace:MineSweeper.CustomControls;assembly=MineSweeper">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Win3mu.MainPage">
 
-  <ContentPage.Padding>
-    <OnPlatform x:TypeArguments="Thickness"
-                iOS="20, 40, 20, 20"
-                Android="20, 20, 20, 20"
-                WinPhone="20, 20, 20, 20"/>
-  </ContentPage.Padding>
-  
-  <StackLayout>
-    
-      <StackLayout Orientation="Horizontal">
-          <Label x:Name="MinesLeftLabel" Font="Large" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" />
-          <Button Text="New game" Clicked="NewGameClicked" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" />
-      </StackLayout>
-
-      <Grid x:Name="MineGrid" ColumnSpacing="1" RowSpacing="1">
-    
-        <Grid.RowDefinitions>
-          <RowDefinition Height="*" />
-          <RowDefinition Height="*" />
-          <RowDefinition Height="*" />
-          <RowDefinition Height="*" />
-          <RowDefinition Height="*" />
-          <RowDefinition Height="*" />
-          <RowDefinition Height="*" />
-          <RowDefinition Height="*" />
-          <RowDefinition Height="*" />
-          <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-      
-        <mine:MineButton Grid.Row="0" Grid.Column="0" XPosition="0" YPosition="0" />
-        <mine:MineButton Grid.Row="0" Grid.Column="1" XPosition="0" YPosition="1" />
-        <mine:MineButton Grid.Row="0" Grid.Column="2" XPosition="0" YPosition="2" />
-        <mine:MineButton Grid.Row="0" Grid.Column="3" XPosition="0" YPosition="3" />
-        <mine:MineButton Grid.Row="0" Grid.Column="4" XPosition="0" YPosition="4" />
-        <mine:MineButton Grid.Row="0" Grid.Column="5" XPosition="0" YPosition="5" />
-        <mine:MineButton Grid.Row="0" Grid.Column="6" XPosition="0" YPosition="6" />
-        <mine:MineButton Grid.Row="0" Grid.Column="7" XPosition="0" YPosition="7" />
-        <mine:MineButton Grid.Row="0" Grid.Column="8" XPosition="0" YPosition="8" />
-        <mine:MineButton Grid.Row="0" Grid.Column="9" XPosition="0" YPosition="9" />
-
-        <mine:MineButton Grid.Row="1" Grid.Column="0" XPosition="1" YPosition="0" />
-        <mine:MineButton Grid.Row="1" Grid.Column="1" XPosition="1" YPosition="1" />
-        <mine:MineButton Grid.Row="1" Grid.Column="2" XPosition="1" YPosition="2" />
-        <mine:MineButton Grid.Row="1" Grid.Column="3" XPosition="1" YPosition="3" />
-        <mine:MineButton Grid.Row="1" Grid.Column="4" XPosition="1" YPosition="4" />
-        <mine:MineButton Grid.Row="1" Grid.Column="5" XPosition="1" YPosition="5" />
-        <mine:MineButton Grid.Row="1" Grid.Column="6" XPosition="1" YPosition="6" />
-        <mine:MineButton Grid.Row="1" Grid.Column="7" XPosition="1" YPosition="7" />
-        <mine:MineButton Grid.Row="1" Grid.Column="8" XPosition="1" YPosition="8" />
-        <mine:MineButton Grid.Row="1" Grid.Column="9" XPosition="1" YPosition="9" />
-
-        <mine:MineButton Grid.Row="2" Grid.Column="0" XPosition="2" YPosition="0" />
-        <mine:MineButton Grid.Row="2" Grid.Column="1" XPosition="2" YPosition="1" />
-        <mine:MineButton Grid.Row="2" Grid.Column="2" XPosition="2" YPosition="2" />
-        <mine:MineButton Grid.Row="2" Grid.Column="3" XPosition="2" YPosition="3" />
-        <mine:MineButton Grid.Row="2" Grid.Column="4" XPosition="2" YPosition="4" />
-        <mine:MineButton Grid.Row="2" Grid.Column="5" XPosition="2" YPosition="5" />
-        <mine:MineButton Grid.Row="2" Grid.Column="6" XPosition="2" YPosition="6" />
-        <mine:MineButton Grid.Row="2" Grid.Column="7" XPosition="2" YPosition="7" />
-        <mine:MineButton Grid.Row="2" Grid.Column="8" XPosition="2" YPosition="8" />
-        <mine:MineButton Grid.Row="2" Grid.Column="9" XPosition="2" YPosition="9" />
-                                        
-        <mine:MineButton Grid.Row="3" Grid.Column="0" XPosition="3" YPosition="0" />
-        <mine:MineButton Grid.Row="3" Grid.Column="1" XPosition="3" YPosition="1" />
-        <mine:MineButton Grid.Row="3" Grid.Column="2" XPosition="3" YPosition="2" />
-        <mine:MineButton Grid.Row="3" Grid.Column="3" XPosition="3" YPosition="3" />
-        <mine:MineButton Grid.Row="3" Grid.Column="4" XPosition="3" YPosition="4" />
-        <mine:MineButton Grid.Row="3" Grid.Column="5" XPosition="3" YPosition="5" />
-        <mine:MineButton Grid.Row="3" Grid.Column="6" XPosition="3" YPosition="6" />
-        <mine:MineButton Grid.Row="3" Grid.Column="7" XPosition="3" YPosition="7" />
-        <mine:MineButton Grid.Row="3" Grid.Column="8" XPosition="3" YPosition="8" />
-        <mine:MineButton Grid.Row="3" Grid.Column="9" XPosition="3" YPosition="9" />
-                                        
-        <mine:MineButton Grid.Row="4" Grid.Column="0" XPosition="4" YPosition="0" />
-        <mine:MineButton Grid.Row="4" Grid.Column="1" XPosition="4" YPosition="1" />
-        <mine:MineButton Grid.Row="4" Grid.Column="2" XPosition="4" YPosition="2" />
-        <mine:MineButton Grid.Row="4" Grid.Column="3" XPosition="4" YPosition="3" />
-        <mine:MineButton Grid.Row="4" Grid.Column="4" XPosition="4" YPosition="4" />
-        <mine:MineButton Grid.Row="4" Grid.Column="5" XPosition="4" YPosition="5" />
-        <mine:MineButton Grid.Row="4" Grid.Column="6" XPosition="4" YPosition="6" />
-        <mine:MineButton Grid.Row="4" Grid.Column="7" XPosition="4" YPosition="7" />
-        <mine:MineButton Grid.Row="4" Grid.Column="8" XPosition="4" YPosition="8" />
-        <mine:MineButton Grid.Row="4" Grid.Column="9" XPosition="4" YPosition="9" />
-
-        <mine:MineButton Grid.Row="5" Grid.Column="0" XPosition="5" YPosition="0" />
-        <mine:MineButton Grid.Row="5" Grid.Column="1" XPosition="5" YPosition="1" />
-        <mine:MineButton Grid.Row="5" Grid.Column="2" XPosition="5" YPosition="2" />
-        <mine:MineButton Grid.Row="5" Grid.Column="3" XPosition="5" YPosition="3" />
-        <mine:MineButton Grid.Row="5" Grid.Column="4" XPosition="5" YPosition="4" />
-        <mine:MineButton Grid.Row="5" Grid.Column="5" XPosition="5" YPosition="5" />
-        <mine:MineButton Grid.Row="5" Grid.Column="6" XPosition="5" YPosition="6" />
-        <mine:MineButton Grid.Row="5" Grid.Column="7" XPosition="5" YPosition="7" />
-        <mine:MineButton Grid.Row="5" Grid.Column="8" XPosition="5" YPosition="8" />
-        <mine:MineButton Grid.Row="5" Grid.Column="9" XPosition="5" YPosition="9" />
-
-        <mine:MineButton Grid.Row="6" Grid.Column="0" XPosition="6" YPosition="0" />
-        <mine:MineButton Grid.Row="6" Grid.Column="1" XPosition="6" YPosition="1" />
-        <mine:MineButton Grid.Row="6" Grid.Column="2" XPosition="6" YPosition="2" />
-        <mine:MineButton Grid.Row="6" Grid.Column="3" XPosition="6" YPosition="3" />
-        <mine:MineButton Grid.Row="6" Grid.Column="4" XPosition="6" YPosition="4" />
-        <mine:MineButton Grid.Row="6" Grid.Column="5" XPosition="6" YPosition="5" />
-        <mine:MineButton Grid.Row="6" Grid.Column="6" XPosition="6" YPosition="6" />
-        <mine:MineButton Grid.Row="6" Grid.Column="7" XPosition="6" YPosition="7" />
-        <mine:MineButton Grid.Row="6" Grid.Column="8" XPosition="6" YPosition="8" />
-        <mine:MineButton Grid.Row="6" Grid.Column="9" XPosition="6" YPosition="9" />
-
-        <mine:MineButton Grid.Row="7" Grid.Column="0" XPosition="7" YPosition="0" />
-        <mine:MineButton Grid.Row="7" Grid.Column="1" XPosition="7" YPosition="1" />
-        <mine:MineButton Grid.Row="7" Grid.Column="2" XPosition="7" YPosition="2" />
-        <mine:MineButton Grid.Row="7" Grid.Column="3" XPosition="7" YPosition="3" />
-        <mine:MineButton Grid.Row="7" Grid.Column="4" XPosition="7" YPosition="4" />
-        <mine:MineButton Grid.Row="7" Grid.Column="5" XPosition="7" YPosition="5" />
-        <mine:MineButton Grid.Row="7" Grid.Column="6" XPosition="7" YPosition="6" />
-        <mine:MineButton Grid.Row="7" Grid.Column="7" XPosition="7" YPosition="7" />
-        <mine:MineButton Grid.Row="7" Grid.Column="8" XPosition="7" YPosition="8" />
-        <mine:MineButton Grid.Row="7" Grid.Column="9" XPosition="7" YPosition="9" />
-
-        <mine:MineButton Grid.Row="8" Grid.Column="0" XPosition="8" YPosition="0" />
-        <mine:MineButton Grid.Row="8" Grid.Column="1" XPosition="8" YPosition="1" />
-        <mine:MineButton Grid.Row="8" Grid.Column="2" XPosition="8" YPosition="2" />
-        <mine:MineButton Grid.Row="8" Grid.Column="3" XPosition="8" YPosition="3" />
-        <mine:MineButton Grid.Row="8" Grid.Column="4" XPosition="8" YPosition="4" />
-        <mine:MineButton Grid.Row="8" Grid.Column="5" XPosition="8" YPosition="5" />
-        <mine:MineButton Grid.Row="8" Grid.Column="6" XPosition="8" YPosition="6" />
-        <mine:MineButton Grid.Row="8" Grid.Column="7" XPosition="8" YPosition="7" />
-        <mine:MineButton Grid.Row="8" Grid.Column="8" XPosition="8" YPosition="8" />
-        <mine:MineButton Grid.Row="8" Grid.Column="9" XPosition="8" YPosition="9" />
-
-        <mine:MineButton Grid.Row="9" Grid.Column="0" XPosition="9" YPosition="0" />
-        <mine:MineButton Grid.Row="9" Grid.Column="1" XPosition="9" YPosition="1" />
-        <mine:MineButton Grid.Row="9" Grid.Column="2" XPosition="9" YPosition="2" />
-        <mine:MineButton Grid.Row="9" Grid.Column="3" XPosition="9" YPosition="3" />
-        <mine:MineButton Grid.Row="9" Grid.Column="4" XPosition="9" YPosition="4" />
-        <mine:MineButton Grid.Row="9" Grid.Column="5" XPosition="9" YPosition="5" />
-        <mine:MineButton Grid.Row="9" Grid.Column="6" XPosition="9" YPosition="6" />
-        <mine:MineButton Grid.Row="9" Grid.Column="7" XPosition="9" YPosition="7" />
-        <mine:MineButton Grid.Row="9" Grid.Column="8" XPosition="9" YPosition="8" />
-        <mine:MineButton Grid.Row="9" Grid.Column="9" XPosition="9" YPosition="9" />
-    
-      </Grid>
-  
-      <StackLayout Orientation="Horizontal">
-          <Button x:Name="DigButton" Text="Dig" Clicked="SwitchToDig" IsEnabled="false" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" />
-          <Button x:Name="FlagButton" Text="Flag" Clicked="SwitchToFlag" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" />
-      </StackLayout>
-
+    <StackLayout>
+        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+            <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+        </Frame>
+        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
+        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
+        <Label FontSize="16" Padding="30,24,30,0">
+            <Label.FormattedText>
+                <FormattedString>
+                    <FormattedString.Spans>
+                        <Span Text="Learn more at "/>
+                        <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
+                    </FormattedString.Spans>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
     </StackLayout>
+
 </ContentPage>

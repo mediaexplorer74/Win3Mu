@@ -1,11 +1,7 @@
 ﻿<Application
-    x:Class="MineSweeper.UWP.App"
+    x:Class="Win3mu.UWP.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MineSweeper.UWP"
-    RequestedTheme="Light">
-    <Application.Resources>
-
-    </Application.Resources>
+    xmlns:local="using:Win3mu.UWP">
 
 </Application>

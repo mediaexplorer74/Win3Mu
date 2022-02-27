@@ -1,21 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="Win3MuV1" Publisher="CN=media" Version="1.0.1.0" />
-  <mp:PhoneIdentity PhoneProductId="8c0cc741-fd3e-485c-7c7d-68815c480698" PhonePublisherId="80000000-8000-7c7d-0000-0000000000d1" />
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4"
+  xmlns:uap6="http://schemas.microsoft.com/appx/manifest/uap/windows10/6"
+  xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10"
+  IgnorableNamespaces="uap mp uap3 uap4 uap6 iot">
+
+  <Identity
+    Name="Win3muV1"
+    Publisher="CN=media"
+    Version="1.0.0.0" />
+
+  <mp:PhoneIdentity PhoneProductId="ec777777-777e-777c-81be-68815c480777" PhonePublisherId="00077700-0777-7770-0777-777000000000"/>
+
   <Properties>
-    <DisplayName>Win3Mu</DisplayName>
+    <DisplayName>Win3mu</DisplayName>
     <PublisherDisplayName>mediaexplorer</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
+
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
   </Dependencies>
+
   <Resources>
-    <Resource Language="x-generate" />
+    <Resource Language="x-generate"/>
   </Resources>
+
   <Applications>
-    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Win3Mu.UWP.App">
-      <uap:VisualElements DisplayName="Win3Mu" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Win3Mu.UWP" BackgroundColor="transparent">
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="Win3mu.UWP.App">
+      <uap:VisualElements
+        DisplayName="Win3mu"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        Description="Win3mu - RnD"
+        BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo" />
@@ -25,12 +50,40 @@
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
         <uap:InitialRotationPreference>
-          <uap:Rotation Preference="portrait" />
-          <uap:Rotation Preference="landscape" />
-          <uap:Rotation Preference="portraitFlipped" />
-          <uap:Rotation Preference="landscapeFlipped" />
-        </uap:InitialRotationPreference>
+          <uap:Rotation Preference="landscape"/>
+          <uap:Rotation Preference="portrait"/>
+          <uap:Rotation Preference="landscapeFlipped"/></uap:InitialRotationPreference>
       </uap:VisualElements>
     </Application>
   </Applications>
+
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <uap:Capability Name="videosLibrary"/>
+    <uap:Capability Name="picturesLibrary"/>
+    <uap:Capability Name="musicLibrary"/>
+    <uap3:Capability Name="backgroundMediaPlayback"/>
+    <uap4:Capability Name="userDataTasks"/>
+    <uap6:Capability Name="graphicsCapture"/>
+    <Capability Name="internetClientServer"/>
+    <uap:Capability Name="contacts"/>
+    <iot:Capability Name="lowLevelDevices"/>
+    <uap:Capability Name="sharedUserCertificates"/>
+    <uap:Capability Name="userAccountInformation"/>
+    <Capability Name="codeGeneration"/>
+    <uap:Capability Name="removableStorage"/>
+    <uap:Capability Name="phoneCall"/>
+    <uap:Capability Name="objects3D"/>
+    <uap3:Capability Name="remoteSystem"/>
+    <iot:Capability Name="systemManagement"/>
+    <Capability Name="privateNetworkClientServer"/>
+    <uap:Capability Name="voipCall"/>
+    <uap4:Capability Name="offlineMapsManagement"/>
+    <Capability Name="allJoyn"/>
+    <DeviceCapability Name="bluetooth"/>
+    <DeviceCapability Name="proximity"/>
+    <DeviceCapability Name="lowLevel"/>
+    <DeviceCapability Name="location"/>
+    <DeviceCapability Name="pointOfService"/>
+  </Capabilities>
 </Package>

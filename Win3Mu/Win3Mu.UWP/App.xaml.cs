@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection; // patch try =)
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,21 +14,14 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Xamarin.Forms;
-using System.Reflection.Emit;
 
-namespace MineSweeper.UWP
+namespace Win3mu.UWP
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-
-    //sealed partial class App : Application
-    //[Activity(Label = "MineSweeper", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    //sealed partial class App : global::Xamarin.Forms.Platform.UWP
-    sealed partial class App : Windows.UI.Xaml.Application
+    sealed partial class App : Application
     {
-
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -47,27 +39,23 @@ namespace MineSweeper.UWP
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            //base.OnCreate(e);
+#if DEBUG
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                //this.DebugSettings.EnableFrameRateCounter = true;
+            }
+#endif
 
-            //Xamarin.Essentials.Platform.Init(this, e);
-
-            //global::Xamarin.Forms.Forms.Init(e);//, savedInstanceState);
-
-            //LoadApplication(new App());
-
-            
-            Windows.UI.Xaml.Controls.Frame rootFrame = Window.Current.Content as Windows.UI.Xaml.Controls.Frame;
+            Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Windows.UI.Xaml.Controls.Frame();
+                rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
-
-                //Good
                 Xamarin.Forms.Forms.Init(e);
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
@@ -88,7 +76,6 @@ namespace MineSweeper.UWP
             }
             // Ensure the current window is active
             Window.Current.Activate();
-            
         }
 
         /// <summary>

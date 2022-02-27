@@ -13,8 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-
-namespace MineSweeper.UWP
+namespace Win3mu.UWP
 {
     public sealed partial class MainPage
     {
@@ -22,8 +21,7 @@ namespace MineSweeper.UWP
         {
             this.InitializeComponent();
 
-            LoadApplication(new MineSweeper.App());
-           
+            LoadApplication(new Win3mu.App());
         }
     }
 }
