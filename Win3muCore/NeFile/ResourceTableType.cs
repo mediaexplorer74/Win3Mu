@@ -59,7 +59,7 @@ namespace Win3muCore.NeFile
         {
             if (_entryMap == null)
             {
-                _entryMap = new Dictionary<string, ResourceEntry>(StringComparer.InvariantCultureIgnoreCase);
+                _entryMap = new Dictionary<string, ResourceEntry>(StringComparer.CurrentCultureIgnoreCase);
                 foreach (var e in resources)
                 {
                     if (!_entryMap.ContainsKey(e.name))

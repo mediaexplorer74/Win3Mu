@@ -88,7 +88,7 @@ namespace Win3muCore
 
         bool DoesPathPrefixMatch(string prefix, string path)
         {
-            if (!path.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+            if (!path.StartsWith(prefix, StringComparison.CurrentCultureIgnoreCase))
                 return false;
 
             if (!prefix.EndsWith("\\"))
@@ -136,7 +136,7 @@ namespace Win3muCore
         public string TryMapHostToGuest(string hostPath, bool forWrite)
         {
             // Map special extension
-            if (hostPath.EndsWith(".exe16", StringComparison.InvariantCultureIgnoreCase))
+            if (hostPath.EndsWith(".exe16", StringComparison.CurrentCultureIgnoreCase))
                 hostPath = hostPath.Substring(0, hostPath.Length - 2);
 
             for (int i=0; i<_mountPoints.Count; i++)
@@ -198,9 +198,10 @@ namespace Win3muCore
 
                     if (DoesPathPrefixMatch(mp.guest, guestPath))
                     {
+                        //RnD
                         // Work out the read-only path
-                        string readPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
-                            + guestPath.Substring(mp.guest.Length); 
+                        string readPath = "C:/ski/";//Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
+                           // + guestPath.Substring(mp.guest.Length); 
                         //mp.host + guestPath.Substring(mp.guest.Length);
 
                         if (!forWrite && System.IO.Directory.Exists(readPath))
@@ -246,7 +247,7 @@ namespace Win3muCore
                             }
                         }
 
-                        if (readPath.EndsWith(".exe", StringComparison.InvariantCultureIgnoreCase) && System.IO.File.Exists(readPath + "16"))
+                        if (readPath.EndsWith(".exe", StringComparison.CurrentCultureIgnoreCase) && System.IO.File.Exists(readPath + "16"))
                             return readPath + "16";
 
                         // Done!
@@ -269,7 +270,8 @@ namespace Win3muCore
         // return a list of virtual sub-folders
         public IEnumerable<string> GetVirtualSubFolders(string guestPath)
         {
-            System.Diagnostics.Debug.Assert(guestPath.EndsWith("\\"));
+            //RnD
+            //System.Diagnostics.Debug.Assert(guestPath.EndsWith("\\"));
 
             for (int i = 0; i < _mountPoints.Count; i++)
             {

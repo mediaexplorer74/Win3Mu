@@ -125,7 +125,7 @@ namespace Win3muCore.Debugging
             // Dump related selectors
             debugger.WriteLine("\nSelectors:");
             var prefix = string.Format("Module '{0}'", modulename);
-            foreach (var sel in _machine.GlobalHeap.AllSelectors.Where(x=>x.name.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase)))
+            foreach (var sel in _machine.GlobalHeap.AllSelectors.Where(x=>x.name.StartsWith(prefix, StringComparison.CurrentCultureIgnoreCase)))
             {
                 debugger.WriteLine("0x{0:X4} - {1}", sel.selector, sel.name);
             }

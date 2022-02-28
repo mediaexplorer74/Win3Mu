@@ -1,4 +1,4 @@
-# Win3Mu
+# Win3Mu 0.3.0-alpha
 C# Windows 3.x emulator
 
 RnD only. Not for any end user.
@@ -14,7 +14,14 @@ Now for now, Win3Mu just "usual" .NET 4.8 app, not UWP app
 
 ## Screenshots
 ![Shot 1](Images/shot1.png)
-![Shot 2](Images/shot2.png)
+
+## Progress (status)
+
+RnD phase +-
+Design phase +-
+Tech phase +-
+Dev phase +-
+Intro -
 
 ## Articles for your own dev
 Part 01. Why I’m writing a Windows 3 Emulator
@@ -68,16 +75,19 @@ Repackage with Win3mu
 https://www.youtube.com/watch?v=OBpEU0PXbYM
 
 
-## How-to
+## How-to to improve this RnD project
 
-- Create some work folder, i.e. c:\win3mu
+- Clone the src code
 
-- unpack win3mu.zip and ski.zip to c:\win3mu
+- Use VS 2022 to RnD it
 
-- if you want to register "Convert to Win3Mu" command (at desktop popup/hot menu), just
-run cmd.exe as Administator, change dir to c:\win3mu 
-and type/enter the command:
-win3mutool /register  
+- Learn the differences .NET 4.8 and .NET Standard 1.4
+
+- Downgrade the code to 1.4...
+
+- Debug, fix bugs, etc. 
+
+- Get your UWP benefits
 
 See "Repackage with Win3mu" video if you don't undestand this cool feature :)
 

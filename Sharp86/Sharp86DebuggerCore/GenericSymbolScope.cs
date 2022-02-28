@@ -39,6 +39,9 @@ namespace Sharp86
             _symbols.Add(name, new CallbackSymbol(callback));
         }
 
-        Dictionary<string, Symbol> _symbols = new Dictionary<string, Symbol>(StringComparer.InvariantCultureIgnoreCase);
+        //RnD
+        Dictionary<string, Symbol> _symbols
+            = new Dictionary<string, Symbol>(StringComparer.CurrentCultureIgnoreCase);
+          //= new Dictionary<string, Symbol>(StringComparer.InvariantCultureIgnoreCase);
     }
 }

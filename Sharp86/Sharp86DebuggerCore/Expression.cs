@@ -204,8 +204,10 @@ namespace Sharp86
 
         public static string FormatWithValueType(object value)
         {
-            switch (Type.GetTypeCode(value.GetType()))
+            //RnD
+            switch (value.GetType())//(Type.GetTypeCode(value.GetType()))
             {
+                /*
                 case TypeCode.Byte:
                     return string.Format("0x{0:X2}", value);
 
@@ -217,6 +219,7 @@ namespace Sharp86
 
                 case TypeCode.UInt64:
                     return string.Format("0x{0:X16}", value);
+                */
             }
 
             return value.ToString();
@@ -1163,6 +1166,8 @@ abstract class Node
                     return new FarPointer((uint)ctx.MemoryBus.ReadDWord(fp.Segment, fp.Offset));
                 }
 
+                //RnD
+                /*
                 switch (Type.GetTypeCode(CastType))
                 {
                     case TypeCode.Byte:
@@ -1187,6 +1192,8 @@ abstract class Node
                     default:
                         throw new InvalidOperationException(string.Format("Don't know how to dereference ptr of type: {0}", CastType));
                 }
+                */
+                return default; // !
             }
 
             public override Node GetIndexBase()
@@ -1296,7 +1303,8 @@ abstract class Node
                 {
                     if (rhsVal is FarPointer)
                         return rhsVal;
-
+                    //RnD
+                    /*
                     switch (Type.GetTypeCode(rhsVal.GetType()))
                     {
                         case TypeCode.Int32:
@@ -1305,10 +1313,15 @@ abstract class Node
                         case TypeCode.UInt64:
                             return new FarPointer((uint)(Convert.ChangeType(rhsVal, typeof(uint))));
                     }
+                    */
+                    return new FarPointer((uint)(Convert.ChangeType(rhsVal, typeof(uint)))); //!
+
                 }
 
-                TypeCode typeCode = Type.GetTypeCode(_castType);
-                return Convert.ChangeType(rhsVal, typeCode);
+                //RnD
+                //TypeCode typeCode = Type.GetTypeCode(_castType);
+
+                return Convert.ChangeType(rhsVal, default);//,typeCode);
             }
 
             public override Node GetIndexBase()
@@ -1382,7 +1395,7 @@ abstract class Node
         }
 
 
-        [Obfuscation(Exclude = true)]
+        //[Obfuscation(Exclude = true)]
         public enum Token
         {
             EOF,

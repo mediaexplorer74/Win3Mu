@@ -650,7 +650,7 @@ namespace Win3muCore
         // 005C - GETTEXTFACE
 
         [EntryPoint(0x005d)]
-        [DllImport("gdi32.dll", CharSet = CharSet.Auto)]
+        [DllImport("gdi32.dll", CharSet = CharSet.Unicode)] // .Auto // RnD
         public static extern bool GetTextMetrics(HDC hdc, out Win32.TEXTMETRIC lptm);
 
 

@@ -28,72 +28,75 @@ namespace Win3muCore
     {
         public static void Merge(Dictionary<string, object> dest, Dictionary<string, object> merge)
         {
-            foreach (var kv in merge)
-            {
-                if (kv.Key.StartsWith("merge:"))
+            if (merge != null)
+            { 
+                foreach (var kv in merge)
                 {
-                    var destKey = kv.Key.Substring(6);
-                    if (dest.ContainsKey(destKey))
+                    if (kv.Key.StartsWith("merge:"))
                     {
-                        var childDst = dest[destKey] as Dictionary<string, object>;
-                        var childSrc = kv.Value as Dictionary<string, object>;
-                        if (childDst != null && childSrc != null)
+                        var destKey = kv.Key.Substring(6);
+                        if (dest.ContainsKey(destKey))
                         {
-                            Merge(childDst, childSrc);
-                            continue;
+                            var childDst = dest[destKey] as Dictionary<string, object>;
+                            var childSrc = kv.Value as Dictionary<string, object>;
+                            if (childDst != null && childSrc != null)
+                            {
+                                Merge(childDst, childSrc);
+                                continue;
+                            }
                         }
+
+                        dest[destKey] = kv.Value;
+                        continue;
                     }
 
-                    dest[destKey] = kv.Value;
-                    continue;
-                }
-
-                if (kv.Key.StartsWith("prepend:"))
-                {
-                    var destKey = kv.Key.Substring(8);
-                    if (dest.ContainsKey(destKey))
+                    if (kv.Key.StartsWith("prepend:"))
                     {
-                        var childDst = dest[destKey] as List<object>;
-                        var childSrc = kv.Value as List<object>;
-                        if (childDst != null && childSrc != null)
+                        var destKey = kv.Key.Substring(8);
+                        if (dest.ContainsKey(destKey))
                         {
-                            childDst.AddRange(childSrc);
-                            continue;
+                            var childDst = dest[destKey] as List<object>;
+                            var childSrc = kv.Value as List<object>;
+                            if (childDst != null && childSrc != null)
+                            {
+                                childDst.AddRange(childSrc);
+                                continue;
+                            }
                         }
+
+                        dest[destKey] = kv.Value;
+                        continue;
                     }
 
-                    dest[destKey] = kv.Value;
-                    continue;
-                }
-
-                if (kv.Key.StartsWith("prepend:"))
-                {
-                    var destKey = kv.Key.Substring(8);
-                    if (dest.ContainsKey(destKey))
+                    if (kv.Key.StartsWith("prepend:"))
                     {
-                        var childDst = dest[destKey] as List<object>;
-                        var childSrc = kv.Value as List<object>;
-                        if (childDst != null && childSrc != null)
+                        var destKey = kv.Key.Substring(8);
+                        if (dest.ContainsKey(destKey))
                         {
-                            childDst.InsertRange(0, childSrc);
-                            continue;
+                            var childDst = dest[destKey] as List<object>;
+                            var childSrc = kv.Value as List<object>;
+                            if (childDst != null && childSrc != null)
+                            {
+                                childDst.InsertRange(0, childSrc);
+                                continue;
+                            }
                         }
+
+                        dest[destKey] = kv.Value;
+                        continue;
                     }
 
-                    dest[destKey] = kv.Value;
-                    continue;
-                }
+                    if (kv.Key.StartsWith("delete:"))
+                    {
+                        var destKey = kv.Key.Substring(7);
+                        if (dest.ContainsKey(destKey))
+                            dest.Remove(destKey);
+                        continue;
+                    }
 
-                if (kv.Key.StartsWith("delete:"))
-                {
-                    var destKey = kv.Key.Substring(7);
-                    if (dest.ContainsKey(destKey))
-                        dest.Remove(destKey);
-                    continue;
+                    // Replace
+                    dest[kv.Key] = kv.Value;
                 }
-
-                // Replace
-                dest[kv.Key] = kv.Value;
             }
         }
     }

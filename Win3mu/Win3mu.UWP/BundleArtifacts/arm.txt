@@ -1,0 +1,5 @@
+MainPackage=C:\Users\media\source\repos\Win3mu\Win3mu\Win3mu.UWP\bin\ARM\Debug\Win3mu.UWP_1.3.0.0_ARM_Debug.appx
+ResourcePack=C:\Users\media\source\repos\Win3mu\Win3mu\Win3mu.UWP\bin\ARM\Debug\Win3mu.UWP_1.3.0.0_scale-100.appx
+ResourcePack=C:\Users\media\source\repos\Win3mu\Win3mu\Win3mu.UWP\bin\ARM\Debug\Win3mu.UWP_1.3.0.0_scale-125.appx
+ResourcePack=C:\Users\media\source\repos\Win3mu\Win3mu\Win3mu.UWP\bin\ARM\Debug\Win3mu.UWP_1.3.0.0_scale-150.appx
+ResourcePack=C:\Users\media\source\repos\Win3mu\Win3mu\Win3mu.UWP\bin\ARM\Debug\Win3mu.UWP_1.3.0.0_scale-400.appx

@@ -61,7 +61,9 @@ namespace Sharp86
                 var pi = pis[i];
 
                 // Debugger reference?
-                if (pi.ParameterType.IsAssignableFrom(typeof(DebuggerCore)))
+                //RnD
+                //if (pi.ParameterType.IsAssignableFrom(typeof(DebuggerCore)))
+                 if (pi.ParameterType.GetGenericTypeDefinition()==typeof(DebuggerCore))
                 {
                     paramValues[i] = _debugger;
                     continue;
@@ -183,37 +185,61 @@ namespace Sharp86
                     FinishRedirect = () =>
                     {
                         tw.WriteLine();
-                        tw.Close();
+
+                        // RnD
+                        tw.Flush();//tw.Close();
+
+
                         Clipboard.SetText(tw.ToString());
                         _debugger.Redirect(null);
                     };
                 }
                 else if (target == "editor")
                 {
-                    var filename = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "debug.txt");
-                    var tw = new StreamWriter(filename, append, Encoding.UTF8);
-                    _debugger.Redirect(tw);
-                    FinishRedirect = () =>
+                    string filename = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "debug.txt");
+
+                    //RnD
+                    using (FileStream fs = File.Open(filename, FileMode.CreateNew))
                     {
-                        tw.WriteLine();
-                        tw.Close();
-                        System.Diagnostics.Process.Start(filename);
-                        _debugger.Redirect(null);
-                    };
+                        var tw = new StreamWriter(fs, Encoding.UTF8);//(filename, append, Encoding.UTF8);
+
+
+                        _debugger.Redirect(tw);
+
+                        FinishRedirect = () =>
+                        {
+                            tw.WriteLine();
+                            tw.Flush();//tw.Close();
+
+                            System.Diagnostics.Process.Start(filename);
+
+                            _debugger.Redirect(null);
+                        };
+                    }
                 }
                 else
                 {
-                    var tw = new StreamWriter(target, append, Encoding.UTF8);
-                    _debugger.Redirect(tw);
-                    FinishRedirect = () =>
-                    {
-                        tw.WriteLine();
-                        tw.Close();
-                        _debugger.Redirect(null);
-                    };
-                }
 
-                _debugger.WriteLine(">" + cmdline);
+                    //RnD
+                    using (FileStream fs = File.Open(target, FileMode.CreateNew))
+                    {
+                        //var tw = new StreamWriter(fs, Encoding.UTF8);//(filename, append, Encoding.UTF8);
+                        StreamWriter tw = new StreamWriter(fs, Encoding.UTF8);//(target, append, Encoding.UTF8);
+
+                        _debugger.Redirect(tw);
+
+                        FinishRedirect = () =>
+                        {
+                            tw.WriteLine();
+
+                            tw.Flush();//tw.Close();
+
+                            _debugger.Redirect(null);
+                        };
+                    }
+
+                    _debugger.WriteLine(">" + cmdline);
+                }
             }
 
             try
@@ -316,7 +342,8 @@ namespace Sharp86
                 // Look for sub-comamnds
                 while (tokenizer.CurrentToken == Expression.Token.Identifier)
                 {
-                    if (!_commandHandlers.SelectMany(x => x.GetType().GetMethods())
+                    //RnD
+                    if (!_commandHandlers.SelectMany(x => x.GetType().GetRuntimeMethods())
                                 .Any(x => x.Name.StartsWith(cmd + "_" + tokenizer.String)))
                         break;
 
@@ -332,7 +359,8 @@ namespace Sharp86
                 ArgumentException argException = null;
                 foreach (var handler in _commandHandlers)
                 {
-                    foreach (var mi in handler.GetType().GetMethods().Where(x => x.Name == cmd))
+                    //RnD
+                    foreach (var mi in handler.GetType().GetRuntimeMethods().Where(x => x.Name == cmd))
                     {
                         attempted.Add(mi);
 

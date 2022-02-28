@@ -107,8 +107,9 @@ namespace Sharp86
 
 		static TypeCode WiderType(object a, object b)
 		{
-			TypeCode ta = Type.GetTypeCode(a.GetType());
-			TypeCode tb = Type.GetTypeCode(b.GetType());
+			//RnD
+			TypeCode ta = default;//Type.GetTypeCode(a.GetType());
+			TypeCode tb = default;//Type.GetTypeCode(b.GetType());
 			return type_map[(int)ta, (int)tb];
 		}
 

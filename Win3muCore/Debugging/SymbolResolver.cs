@@ -49,7 +49,7 @@ namespace Win3muCore
 
         void BuildSymbolMap()
         {
-            _symbolMap = new Dictionary<string, Symbol>(StringComparer.InvariantCultureIgnoreCase);
+            _symbolMap = new Dictionary<string, Symbol>(StringComparer.CurrentCultureIgnoreCase);
 
             foreach (var m in _machine.ModuleManager.AllModules.OfType<Module32>())
             {

@@ -18,6 +18,7 @@ along with Win3mu.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -210,7 +211,17 @@ namespace Win3muCore
             {
                 int width = tokens[i].Width;
 
-                var value = tokens[i].Resolve().ToString();
+                string value = "";
+
+                try
+                {
+                    value = tokens[i].Resolve().ToString();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("[ex] ResolveTokenizedString Exception: " + ex.Message);
+                    value = "";
+                }
 
                 if (width < 0)
                 {
@@ -431,15 +442,16 @@ namespace Win3muCore
         }
 
 
-        Dictionary<string, List<TokenizedString>> _monitors = new Dictionary<string, List<TokenizedString>>(StringComparer.InvariantCultureIgnoreCase);
-        Dictionary<string, Func<string>> _variables = new Dictionary<string, Func<string>>(StringComparer.InvariantCultureIgnoreCase);
+        Dictionary<string, List<TokenizedString>> _monitors = new Dictionary<string, List<TokenizedString>>(StringComparer.CurrentCultureIgnoreCase);
+        Dictionary<string, Func<string>> _variables = new Dictionary<string, Func<string>>(StringComparer.CurrentCultureIgnoreCase);
         DateTime _resolveTime;
 
         int WeekNumberFromDateTime(DateTime dt)
         {
+            //RnD
             var year = new DateTime(dt.Year, 1, 1);
-            var yearStart = (int)(year.ToOADate() - (int)year.DayOfWeek);
-            return (int)((dt.ToOADate() - yearStart) / 7) + 1;
+            var yearStart = (int)(2010);//(year.ToOADate() - (int)year.DayOfWeek);
+            return 7;//(int)((dt.ToOADate() - yearStart) / 7) + 1;
         }
 
         int WeekNumber
@@ -454,9 +466,10 @@ namespace Win3muCore
         {
             get
             {
+                //RnD
                 var month = new DateTime(_resolveTime.Year, _resolveTime.Month, 1);
-                var monthStart = (int)(month.ToOADate() - (int)month.DayOfWeek);
-                return (int)((_resolveTime.ToOADate() - monthStart) / 7) + 1;
+                var monthStart = 1;//(int)(month.ToOADate() - (int)month.DayOfWeek);
+                return 1;//(int)((_resolveTime.ToOADate() - monthStart) / 7) + 1;
             }
         }
 
@@ -472,6 +485,8 @@ namespace Win3muCore
         void RegisterStandardVariables()
         {
             // Special folders
+            //RnD // TODO!
+            /*
             Register("AppData", () => System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
             Register("CommonAppData", () => System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData));
             Register("CommonDesktop", () => System.Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory));
@@ -486,6 +501,7 @@ namespace Win3muCore
             Register("SystemX86", () => System.Environment.GetFolderPath(Environment.SpecialFolder.SystemX86));
             Register("Temp", () => System.IO.Path.GetTempPath());
             Register("Windows", () => System.Environment.GetFolderPath(Environment.SpecialFolder.Windows));
+            */
         }
     }
 }

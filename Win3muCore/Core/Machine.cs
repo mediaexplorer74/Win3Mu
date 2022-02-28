@@ -1,23 +1,11 @@
 ﻿/*
 Win3mu - Windows 3 Emulator
-Copyright (C) 2017 Topten Software.
-
-Win3mu is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Win3mu is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Win3mu.  If not, see <http://www.gnu.org/licenses/>.
+Copyright (C) 2017-2022 Topten Software.
 */
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -34,8 +22,8 @@ namespace Win3muCore
         {
             if (!System.Diagnostics.Debugger.IsAttached)
             {
-                AppDomain currentDomain = AppDomain.CurrentDomain;
-                currentDomain.UnhandledException += UnhandledException;
+                //AppDomain currentDomain = AppDomain.CurrentDomain;
+                //currentDomain.UnhandledException += UnhandledException;
             }
 
             _pathMapper = new PathMapper(this);
@@ -89,7 +77,7 @@ namespace Win3muCore
 
         }
 
-        void UnhandledException(object sender, UnhandledExceptionEventArgs args)
+        void UnhandledException(object sender, UnobservedTaskExceptionEventArgs args) //UnhandledExceptionEventArgs args)
         {
             // Dump global heap
             Log.WriteLine("\nGlobal Heap Map:");
@@ -113,7 +101,7 @@ namespace Win3muCore
 
             // Dump exception
             Log.WriteLine("\nUnhandled Exception:");
-            Log.WriteLine(args.ExceptionObject.ToString());
+            //Log.WriteLine(args.ExceptionObject.ToString());
 
             // Flush log
             Log.Flush();
@@ -122,12 +110,12 @@ namespace Win3muCore
             IsStoppedInDebugger = true;
 
             // Unwrap useless exception wrapper
-            var x = args.ExceptionObject as Exception;
-            while (x is System.Reflection.TargetInvocationException)
-                x = x.InnerException;
+            //var x = Exception;//args.ExceptionObject as Exception;
+            // while (x is System.Reflection.TargetInvocationException)
+            //    x = x.InnerException;
 
             User.MessageBox(IntPtr.Zero, 
-                string.Format("An unrecoverable error has occurred:\n\n{0}", x.Message), 
+                string.Format("An unrecoverable error has occurred:\n\n{0}", args.Exception.Message), // x
                 string.Format("{0} (via Win3mu)", System.IO.Path.GetFileName(ProgramHostPath)),
                 Win32.MB_OK|Win32.MB_ERROR|Win32.MB_TASKMODAL);
 
@@ -159,11 +147,17 @@ namespace Win3muCore
             if (System.IO.File.Exists(filename))
             {
                 // Load the file
-                var fileConfig = Json.ParseFile<Dictionary<string, object>>(filename);
+                Dictionary<string, object> fileConfig = Json.ParseFile<Dictionary<string, object>>(filename);
 
                 // Debug/Release config?
-                var configConfig = fileConfig.GetPath<Dictionary<string, object>>("config." + configName);
-                fileConfig.Remove("config");
+                Dictionary<string, object> configConfig = fileConfig.GetPath<Dictionary<string, object>>("config." + configName);
+
+                //RnD
+                if (fileConfig != null)
+                {
+                    fileConfig.Remove("config");
+                }
+                
                 if (configConfig != null)
                 {
                     JsonMerge.Merge(fileConfig, configConfig);
@@ -171,7 +165,13 @@ namespace Win3muCore
                 
                 // Per-app config?
                 var appConfig = fileConfig.GetPath<Dictionary<string, object>>("programSpecific." + programName);
-                fileConfig.Remove("programSpecific");
+
+                //RnD
+                if (fileConfig != null)
+                {
+                    fileConfig.Remove("programSpecific");
+                }
+                
                 if (appConfig!= null)
                 {                                      
                     JsonMerge.Merge(fileConfig, appConfig);
@@ -287,12 +287,16 @@ namespace Win3muCore
 
                 return _exitCode;
             }
-            catch (Exception x)
+            catch (Exception ex)
             {
-                Log.WriteLine(x.Message);      
+                Log.WriteLine(ex.Message);      
                 Log.Flush();
-                throw;
+
+                Debug.WriteLine("[ex] RunProgram Exception: " + ex.Message);
+                //throw;
+                _exitCode = - 1; // !
             }
+
             return _exitCode;
         }
 
@@ -317,7 +321,7 @@ namespace Win3muCore
                                                                                  
 
         [Json("env")]
-        public Dictionary<string, string> Environment = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+        public Dictionary<string, string> Environment = new Dictionary<string, string>(StringComparer.CurrentCultureIgnoreCase);
 
         [Json("mountPoints", KeepInstance = true)]
         public Dictionary<string, PathMapper.Mount> mountPoints = new Dictionary<string, PathMapper.Mount>();
@@ -743,8 +747,12 @@ namespace Win3muCore
             _variableResolver.Register("AppFolder", () => System.IO.Path.GetDirectoryName(ProgramHostPath));
             _variableResolver.Register("Win3muFolder", () =>
             {
-                if (System.Reflection.Assembly.GetExecutingAssembly() != null)
-                    return System.IO.Path.GetDirectoryName(typeof(Machine).Assembly.Location);
+                //RnD
+                //if (System.Reflection.Assembly.GetExecutingAssembly() != null)
+                //{
+                //    return System.IO.Path.GetDirectoryName(typeof(Machine).Assembly.Location);
+                //}
+
                 return null;
             });
             _variableResolver.Register("ax", () => ax.ToString("X4"));
@@ -829,8 +837,13 @@ namespace Win3muCore
         public void SysFree(uint ptr)
         {
             if (ptr == 0)
+            {
                 return;
-            System.Diagnostics.Debug.Assert(ptr.Hiword() == _systemDataHeap.GlobalHandle);
+            }
+
+            //RnD
+            //System.Diagnostics.Debug.Assert(ptr.Hiword() == _systemDataHeap.GlobalHandle);
+            
             _systemDataHeap.Free(ptr.Loword());
         }
 

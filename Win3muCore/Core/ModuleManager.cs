@@ -18,6 +18,7 @@ along with Win3mu.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace Win3muCore
         public ModuleManager(Machine machine)
         {
             _machine = machine;
-            _loadedModules = new Dictionary<string, ModuleBase>(StringComparer.InvariantCultureIgnoreCase);
+            _loadedModules = new Dictionary<string, ModuleBase>(StringComparer.CurrentCultureIgnoreCase);
             _instanceMap = new Dictionary<ushort, ModuleBase>();
         }
 
@@ -54,21 +55,40 @@ namespace Win3muCore
         // Get a loaded module using an instance handle
         public ModuleBase GetModule(ushort hModule)
         {
+            ModuleBase module;
+
             // Get the executable module?
             if (hModule == 0)
-                return _loadedModules.OfType<Module16>().FirstOrDefault(x => !x.IsDll && x.hModule!=0);
+            {
+                return _loadedModules.OfType<Module16>().FirstOrDefault(x => !x.IsDll && x.hModule != 0);
+            }
 
-            ModuleBase module;
             if (!_instanceMap.TryGetValue(hModule, out module))
+            {
                 return null;
+            }
 
-            System.Diagnostics.Debug.Assert(module.hModule == hModule);
+            //RnD
+            //System.Diagnostics.Debug.Assert(module.hModule == hModule);
+
             return module;
         }
 
         public ModuleBase LoadModule(string fileOrModuleName)
         {
-            return LoadModuleInternal(fileOrModuleName, null);
+            ModuleBase mbase = null;
+
+            try
+            {
+                mbase = LoadModuleInternal(fileOrModuleName, null);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("[ex] LoadModule Exception: " + ex.Message);
+                return null;
+            }
+
+            return mbase;
         }
 
         public ModuleBase LoadModuleInternal(string fileOrModuleName, string parentPath)
@@ -231,14 +251,24 @@ namespace Win3muCore
 
                 if (module.LoadCount==1)
                 {
-                    System.Diagnostics.Debug.Assert(!_loadedModules.ContainsKey(module.GetModuleName()));
+                    //RnD
+                    //System.Diagnostics.Debug.Assert(!_loadedModules.ContainsKey(module.GetModuleName()));
+
                     var referencedModules = new List<ModuleBase>();
 
                     try
                     {
                         // Add this module to map of loaded modules incase a dependent
                         // module circularly references back to it
-                        _loadedModules.Add(module.GetModuleName(), module);
+
+                        try
+                        {
+                            _loadedModules.Add(module.GetModuleName(), module);
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine("[ex] _loadedModules.Add Exception: " + ex.Message);
+                        }
 
                         // Load implicitly references modules
                         foreach (var m in module.GetReferencedModules())
@@ -309,7 +339,9 @@ namespace Win3muCore
                         Log.WriteLine("Initializing module '{0}'...", m.GetModuleName());
                         m.Init(_machine);
                         m.Initialized = true;
-                        System.Diagnostics.Debug.Assert(m.hModule != 0);
+                        
+                        //RnD
+                        //System.Diagnostics.Debug.Assert(m.hModule != 0);
                     }
                 }
                 catch (VirtualException)
@@ -325,7 +357,8 @@ namespace Win3muCore
 
         public void UnloadModule(ModuleBase module)
         {
-            System.Diagnostics.Debug.Assert(module.LoadCount > 0);
+            //RnD
+            //System.Diagnostics.Debug.Assert(module.LoadCount > 0);
 
             module.LoadCount--;
             if (module.LoadCount==0)

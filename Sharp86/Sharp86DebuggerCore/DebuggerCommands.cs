@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Sharp86
@@ -29,8 +30,9 @@ namespace Sharp86
         [DebuggerHelp("List all available commands")]
         public void help(DebuggerCore debugger)
         {
+            //RnD
             foreach (var mi in debugger.CommandDispatcher._commandHandlers
-                    .SelectMany(x => x.GetType().GetMethods())
+                    .SelectMany(x => x.GetType().GetRuntimeMethods())
                     .OrderBy(x => x.Name))
 
             {
@@ -463,7 +465,27 @@ namespace Sharp86
                 _logger.Dispose();
                 _logger = null;
             }
-            _logger = new StreamWriter(filename, false, Encoding.UTF8);
+
+            //RnD
+            //_logger = new StreamWriter(filename, /*false,*/ Encoding.UTF8);
+            FileStream fs = null;
+            try
+            {
+                fs = new FileStream(filename, FileMode.CreateNew);
+                
+                using (StreamWriter w = new StreamWriter(fs))
+                {
+                    _logger = new StreamWriter(fs, /*false,*/ Encoding.UTF8);
+                }
+            }
+            finally
+            {
+                if (fs != null)
+                    fs.Dispose();
+            }
+
+
+
             debugger.WriteLine("Logging to file {0}", filename);
             debugger.Redirect(_logger);
         }

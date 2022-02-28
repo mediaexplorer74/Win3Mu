@@ -291,7 +291,8 @@ namespace Win3muCore
         {
             get
             {
-                return (uint)(Math.Floor(DateTime.Now.ToOADate()));
+                // RnD
+                return (uint)( DateTime.Now.ToBinary()) ; // Math.Floor...  .ToOADate() 
             }
         }
 
@@ -1013,7 +1014,8 @@ namespace Win3muCore
                 try
                 {
                     // Close the file
-                    file.fs.Close();
+                    //RnD
+                    file.fs.Flush();//.Close();
                 }
                 catch
                 {
@@ -1338,7 +1340,9 @@ namespace Win3muCore
         public void FindFiles(string spec, byte attributes)
         {
             int size = Marshal.SizeOf<FINDFILESTRUCT>();
-            System.Diagnostics.Debug.Assert(size == 43);
+
+            //RnD
+            //System.Diagnostics.Debug.Assert(size == 43);
 
             _findFiles = null;
             _foundFiles = null;

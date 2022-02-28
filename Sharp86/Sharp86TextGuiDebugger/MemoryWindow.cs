@@ -255,7 +255,7 @@ namespace Sharp86
             }
         }
 
-        [Obfuscation(Exclude = true, ApplyToMembers = true)]
+        //[Obfuscation(Exclude = true, ApplyToMembers = true)]
         enum ViewFormat
         {
             Byte,

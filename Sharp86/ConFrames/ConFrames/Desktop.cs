@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace ConFrames
 {
@@ -398,8 +399,10 @@ namespace ConFrames
         {
             if (_oldForegroundWindow==IntPtr.Zero)
             {
-                _oldForegroundWindow = System.Diagnostics.Process.GetCurrentProcess().MainWindowHandle;
+                //TODO
+                _oldForegroundWindow = IntPtr.Zero;//System.Diagnostics.Process.GetCurrentProcess().MainWindowHandle;
             }
+
             if (_oldForegroundWindow !=IntPtr.Zero)
             {
                 Interop.SetForegroundWindow(_oldForegroundWindow);

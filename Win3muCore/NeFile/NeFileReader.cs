@@ -44,7 +44,7 @@ namespace Win3muCore.NeFile
             }
             catch
             {
-                _file.Close();
+                _file.Flush();//.Close();
                 _file = null;
                 throw;
             }
@@ -171,7 +171,7 @@ namespace Win3muCore.NeFile
         string _moduleName;
         Dictionary<ushort, EntryPoint> _entryPoints = new Dictionary<ushort, EntryPoint>();
         Dictionary<ushort, string> _exportedOrdinalToNameMap = new Dictionary<ushort, string>();
-        Dictionary<string, ushort> _exportedNameToOrdinalMap = new Dictionary<string, ushort>(StringComparer.InvariantCultureIgnoreCase);
+        Dictionary<string, ushort> _exportedNameToOrdinalMap = new Dictionary<string, ushort>(StringComparer.CurrentCultureIgnoreCase);
         //Dictionary<ushort, string> _importedOrdinalToNameMap = new Dictionary<ushort, string>();
         //Dictionary<string, ushort> _importedNameToOrdinalMap = new Dictionary<string, ushort>(StringComparer.InvariantCultureIgnoreCase);
         MzHeader _mzHeader;
@@ -273,7 +273,10 @@ namespace Win3muCore.NeFile
                     {
                         // Moveable segment
                         ushort int3f = file.ReadUInt16();
-                        System.Diagnostics.Debug.Assert(int3f == 0x3fCD);
+
+                        //RnD
+                        //System.Diagnostics.Debug.Assert(int3f == 0x3fCD);
+                        
                         ep.segmentNumber = (byte)file.ReadByte();
                     }
                     else
@@ -281,7 +284,8 @@ namespace Win3muCore.NeFile
                         ep.segmentNumber = segmentIndex;
                     }
 
-                    System.Diagnostics.Debug.Assert(ep.segmentNumber <= _segments.Count);
+                    //RnD
+                    //System.Diagnostics.Debug.Assert(ep.segmentNumber <= _segments.Count);
 
                     ep.segmentOffset = file.ReadUInt16();
 
@@ -583,7 +587,7 @@ namespace Win3muCore.NeFile
         {
             if (_resourceTypeMap == null)
             {
-                _resourceTypeMap = new Dictionary<string, ResourceTypeTable>(StringComparer.InvariantCultureIgnoreCase);
+                _resourceTypeMap = new Dictionary<string, ResourceTypeTable>(StringComparer.CurrentCultureIgnoreCase);
                 foreach (var t in _resourceTable.types)
                 {
                     _resourceTypeMap.Add(t.name, t);
@@ -645,7 +649,8 @@ namespace Win3muCore.NeFile
         {
             if (_file != null)
             {
-                _file.Close();
+                //RnD
+                _file.Flush();//.Close();
                 _file = null;
             }
         }

@@ -1,0 +1,1 @@
+MainPackage=C:\Users\media\source\repos\Win3mu\Win3mu\Win3mu.UWP\bin\x64\Debug\Win3mu.UWP_1.3.0.0_x64_Debug.appx

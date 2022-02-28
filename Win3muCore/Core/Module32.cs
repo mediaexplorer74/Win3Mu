@@ -18,6 +18,7 @@ along with Win3mu.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -34,7 +35,9 @@ namespace Win3muCore
         {
             if (t == null)
                 return false;
-            return t.GetCustomAttributes(typeof(MappedTypeAttribute), false).Any();
+
+            //RnD
+            return false;//t.GetCustomAttributes(typeof(MappedTypeAttribute), false).Any();
         }
     }
 
@@ -63,7 +66,7 @@ namespace Win3muCore
             DebugBreak16 = false;
         }
 
-        [Obfuscation(Exclude = true)]
+        //[Obfuscation(Exclude = true)]
         public bool PreserveAX;
 
         public ushort Ordinal;
@@ -114,11 +117,16 @@ namespace Win3muCore
     {
         public Module32()
         {
-            _attributes = (ModuleAttribute)GetType().GetCustomAttributes(typeof(ModuleAttribute), true).FirstOrDefault();
-            System.Diagnostics.Debug.Assert(_attributes != null);
+            //RnD
+            _attributes = null;//(ModuleAttribute)GetType().GetCustomAttributes(typeof(ModuleAttribute), true).FirstOrDefault();
+            
+            
+            //System.Diagnostics.Debug.Assert(_attributes != null);
 
             // Build ordinal import table
-            foreach (var mi in GetType().GetMethods())
+            //RnD
+            //foreach (var mi in GetType().GetMethods())
+            foreach (var mi in GetType().GetRuntimeMethods())
             {
                 // Get the entry point attribute
                 var ma = (EntryPointAttribute)mi.GetCustomAttributes(typeof(EntryPointAttribute), true).FirstOrDefault();
@@ -139,7 +147,8 @@ namespace Win3muCore
                 _entryPointsByName.Add(ma.Name, ep);
                 _entryPointsByOrdinal.Add(ma.Ordinal, ep);
             }
-        }
+
+        }//Module32
 
         class EntryPoint
         {
@@ -157,8 +166,19 @@ namespace Win3muCore
         #region Abtract Methods
         public override string GetModuleName()
         {
-            return _attributes.ModuleName;
-        }
+            //RnD
+            string ModName = "";
+            try
+            {
+                ModName = _attributes.ModuleName;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("[ex] GetModuleName Exception: " + ex.Message);
+                ModName = "";
+            }
+            return ModName;
+         }
 
         public override string GetModuleFileName()
         {
@@ -302,7 +322,8 @@ namespace Win3muCore
             }
             if (MappedTypeAttribute.Is(pt))
             {
-                var convertMethod = pt.GetMethod("To32");
+                //RnD
+                var convertMethod = pt.GetRuntimeMethod("To32", null);
                 return SizeOfType16(convertMethod.GetParameters()[0].ParameterType);
             }
             throw new NotImplementedException(string.Format("Type not supported by thunking layer - {0}", pt));
@@ -470,7 +491,8 @@ namespace Win3muCore
 
                 if (MappedTypeAttribute.Is(retType))
                 {
-                    var convertMethod = retType.GetMethod("To16");
+                    // RnD
+                    var convertMethod = retType.GetRuntimeMethod("To16", null);
                     var retValue16 = convertMethod.Invoke(null, new object[] { retValue });
                     SetReturnValue(convertMethod.ReturnType, retValue16);
                     return;
@@ -663,7 +685,8 @@ namespace Win3muCore
                 }
                 if (MappedTypeAttribute.Is(pt))
                 {
-                    var convertMethod = pt.GetMethod("To32");
+                    // RnD
+                    var convertMethod = pt.GetRuntimeMethod("To32", null);
 
                     // Read the 16-bit value
                     var val16 = ReadParamFromStack(convertMethod.GetParameters()[0].ParameterType, null);
@@ -675,7 +698,8 @@ namespace Win3muCore
                     {
                         RegisterPostInvokeCallback(() =>
                         {
-                            var destroyMethod = pt.GetMethod("Destroy");
+                            //RnD
+                            var destroyMethod = pt.GetRuntimeMethod("Destroy", null);
                                 destroyMethod.Invoke(null, new object[] { val16 });
                         });
                     }
@@ -685,7 +709,8 @@ namespace Win3muCore
                 if (pt.IsByRef)
                 {
                     var underlyingType = pt.GetElementType();
-                    if (underlyingType.IsValueType)
+                    //RnD
+                    if (underlyingType.GetType()==typeof(ValueType))//(underlyingType.IsValueType)
                     {
                         var ptr = _machine.ReadDWord(_machine.ss, _paramPos);
 
@@ -694,7 +719,8 @@ namespace Win3muCore
                         {
                             if (MappedTypeAttribute.Is(underlyingType))
                             {
-                                var convertMethod = underlyingType.GetMethod("To32");
+                                //RnD
+                                var convertMethod = underlyingType.GetRuntimeMethod("To32", null);
                                 val = _machine.ReadStruct(convertMethod.GetParameters()[0].ParameterType, ptr);
                                 val = convertMethod.Invoke(null, new object[] { val });
                             }
@@ -719,7 +745,9 @@ namespace Win3muCore
                                 val = _paramValues[index];
                                 if (MappedTypeAttribute.Is(underlyingType))
                                 {
-                                    var convertMethod = underlyingType.GetMethod("To16");
+                                    //RnD
+                                    var convertMethod = underlyingType.GetRuntimeMethod("To16", null);
+
                                     val = convertMethod.Invoke(null, new object[] { val });
                                 }
                                 if (ptr!=0)

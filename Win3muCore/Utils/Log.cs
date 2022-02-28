@@ -39,15 +39,16 @@ namespace Win3muCore
 
             if (outputFile != null)
             {
+                //RnD
                 // Make sure the folder exists
                 //string folder = System.IO.Path.GetDirectoryName(outputFile);
-                string folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
-                    + "\\" + "log";
+                //string folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
+                //    + "\\" + "log";
 
-                if (!System.IO.Directory.Exists(folder))
-                    System.IO.Directory.CreateDirectory(folder);
+                //if (!System.IO.Directory.Exists(folder))
+                //    System.IO.Directory.CreateDirectory(folder);
 
-                output2 = new StreamWriter(folder + "\\" + shortFN, false, Encoding.UTF8);
+                //output2 = new StreamWriter(folder + "\\" + shortFN, false, Encoding.UTF8);
                 //output2 = new StreamWriter(folder + "\\" + outputFile, false, Encoding.UTF8);
             }
         }
@@ -56,7 +57,7 @@ namespace Win3muCore
         {
             if (output2 != null)
             {
-                output2.Close();
+                output2.Flush();//.Close();
                 output2.Dispose();
             }
         }

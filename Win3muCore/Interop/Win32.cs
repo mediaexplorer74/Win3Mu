@@ -309,7 +309,7 @@ namespace Win3muCore
             }
         }
 
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)] // .Auto
         [MappedType]
         public struct TEXTMETRIC
         {

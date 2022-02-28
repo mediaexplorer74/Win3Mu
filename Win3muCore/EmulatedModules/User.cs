@@ -30,7 +30,7 @@ namespace Win3muCore
     public class User : Module32
     {
         [EntryPoint(0x0001)]
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)] // .Auto // RnD
         public static extern nint MessageBox(HWND hWnd, string text, string caption, nint options);
 
         // 0002 - OLDEXITWINDOWS
@@ -63,7 +63,10 @@ namespace Win3muCore
 
             var retv = SetTimer(hWnd.value, (IntPtr)nIDEvent, uElapse, _machine.Messaging.RegisterTimerProc(pfnTimerProc));
             var retv16 = retv.Loword();
-            System.Diagnostics.Debug.Assert(retv == (IntPtr)retv16);    // Check we didn't lose anything
+
+            //RnD
+            //System.Diagnostics.Debug.Assert(retv == (IntPtr)retv16);    // Check we didn't lose anything
+            
             return retv16;
         }
 
@@ -895,9 +898,9 @@ namespace Win3muCore
             }
         }
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto, EntryPoint = "SendMessageW")]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, EntryPoint = "SendMessageW")] // .Auto
         public static extern IntPtr _SendMessage(IntPtr hWnd, uint message, IntPtr wParam, IntPtr lParam);
-        [DllImport("user32.dll", CharSet = CharSet.Auto, EntryPoint = "SendMessageW")]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, EntryPoint = "SendMessageW")]
         public static extern IntPtr _SendMessage(IntPtr hWnd, uint message, IntPtr wParam, [MarshalAs(UnmanagedType.LPWStr)] string strParam);
 
         [EntryPoint(0x006f)]
@@ -1092,7 +1095,9 @@ namespace Win3muCore
                         }
                     });
 
-                    System.Diagnostics.Debug.Assert(retval.HasValue);
+                    //RnD
+                    //System.Diagnostics.Debug.Assert(retval.HasValue);
+
                     return (uint)(retval.Value == IntPtr.Zero ? 0 : 1);
             }
 
@@ -1328,7 +1333,10 @@ namespace Win3muCore
             if (nIndex >= 0)
             {
                 var retv = _SetWindowWord(hWnd, nIndex, value);
-                System.Diagnostics.Debug.Assert(_GetWindowWord(hWnd, nIndex) == value);
+                
+                //RnD
+                //System.Diagnostics.Debug.Assert(_GetWindowWord(hWnd, nIndex) == value);
+                
                 return retv;
             }
 
@@ -1419,7 +1427,10 @@ namespace Win3muCore
             if (gwl>=0)
             {
                 var retv = _SetWindowLong(hWnd.value, (int)gwl, value);
-                System.Diagnostics.Debug.Assert(_GetWindowLong(hWnd, (int)gwl) == value);
+                
+                //RnD
+                //System.Diagnostics.Debug.Assert(_GetWindowLong(hWnd, (int)gwl) == value);
+                
                 return retv;
             }
 
@@ -2452,9 +2463,9 @@ namespace Win3muCore
             return InsertMenu(hMenu, uPosition, uFlags, idOrHMenu32, str);
         }
 
-        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)] // .Auto
         public static extern bool AppendMenu(HMENU hMenu, uint uFlags, IntPtr uIDNewItem, string lpNewItem);
-        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool AppendMenu(HMENU hMenu, uint uFlags, IntPtr uIDNewItem, IntPtr dataOrBitmap);
 
         [EntryPoint(0x019B)]
