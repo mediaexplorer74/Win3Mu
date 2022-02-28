@@ -20,7 +20,7 @@ Now for now, Win3Mu just "usual" .NET 4.8 app, not UWP app
 RnD phase +-
 Design phase +-
 Tech phase +-
-Dev phase +-
+Dev phase +- (the code base rapidly converted into UWP / Xamarin Forms + downshifted to .NET 1.4)
 Intro -
 
 ## Articles for your own dev
