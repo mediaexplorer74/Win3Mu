@@ -86,16 +86,12 @@ https://www.youtube.com/watch?v=OBpEU0PXbYM
 
 - Learn the differences .NET 4.8 and .NET Standard 1.4
 
-- Downgrade the code to 1.4...
+- Improve non-operational (after my fast "transferring" to 1.4...) code blocks (marked by "RnD" tag)
 
 - Debug, fix bugs, etc. 
 
-- Get your UWP benefits
+- Get your UWP benefits at this brave dev world! :)
 
-See "Repackage with Win3mu" video if you don't undestand this cool feature :)
-
-- if you want to manually run ski.exe then simply type/enter the command:
-win3mu ski.exe
 
 
 ## More tech details (building, etc.)
